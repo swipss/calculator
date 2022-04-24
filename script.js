@@ -11,8 +11,42 @@ KEYS.forEach(key => {
     buttonContainer.append(button)
 
     button.addEventListener('click', (e) => {
-        console.log(e.target)
+        const numberContainer = document.querySelector('.number-container')
+        numberContainer.textContent += key
+
+        if (key === 'C') {
+            numberContainer.textContent = ''
+        }
+        
     })
 
 })
 
+function add(num1, num2) {
+    return num1 + num2
+}
+
+function subtract(num1, num2) {
+    return num1 - num2
+}
+
+function multiply(num1, num2) {
+    return num1 * num2
+}
+
+function divide(num1, num2) {
+    return num1 / num2
+    // add error on dividing with 0
+}
+
+function operate(operator, num1, num2) {
+    if (operator === '+'){
+        return add(num1, num2)
+    } else if (operator === '-') {
+        return subtract(num1, num2)
+    } else if (operator === '*') {
+        return multiply(num1, num2)
+    } else {
+        return divide(num1, num2)
+    }
+}
