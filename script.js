@@ -16,12 +16,12 @@ function populate() {
         button.textContent = key
         buttonContainer.append(button)
 
+
     
         button.addEventListener('click', (e) => {
             const numberContainer = document.querySelector('.number-container')
             if (key === Number(key)) {
                 numberContainer.textContent = displayValue
-
                 numberContainer.textContent += key
                 displayValue += key
             }
@@ -30,19 +30,42 @@ function populate() {
                 operator = '+'
                 lastValue = displayValue
                 displayValue = ''
-                console.log(lastValue)
-                console.log('plus clicked')
-
+            }
+            if (key === '*') {
+                numberContainer.textContent = displayValue
+                operator = '*'
+                lastValue = displayValue
+                displayValue = ''
+            }
+            if (key === '-') {
+                numberContainer.textContent = displayValue
+                operator = '-'
+                lastValue = displayValue
+                displayValue = ''
+            }
+            if (key === '/') {
+                numberContainer.textContent = displayValue
+                operator = '/'
+                lastValue = displayValue
+                displayValue = ''
             }
 
-            if (key === '=') {
-                let answer = operate(operator, Number(lastValue), Number(displayValue))
+            if (key === '=' && displayValue && lastValue) {
+                let answer = Math.round(operate(operator, Number(lastValue), Number(displayValue))*100) / 100
                 console.log(answer)
                 numberContainer.textContent = answer
                 displayValue = answer
-                operator = ''
+                lastValue = displayValue
             }
-
+            if (key === '.') {
+                displayValue += '.'
+                numberContainer.textContent = displayValue
+                
+            }
+            if (key === '+/-') {
+                displayValue = displayValue * -1
+                numberContainer.textContent = displayValue
+            }
             if (key === 'C') {
                 numberContainer.textContent = ''
                 displayValue = ''
@@ -55,7 +78,6 @@ function populate() {
     
     })
 }
-
 
 function add(num1, num2) {
     return num1 + num2
@@ -70,6 +92,7 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
+    
     return num1 / num2
     // add error on dividing with 0
 }
