@@ -12,9 +12,12 @@ let operator = ''
 function populate() {
     KEYS.forEach(key => {
         const button = document.createElement('div')
+        
         button.classList.add('button')
         button.textContent = key
+        
         buttonContainer.append(button)
+        
 
 
     
@@ -49,10 +52,15 @@ function populate() {
                 lastValue = displayValue
                 displayValue = ''
             }
+            if (key === '%') {
+                numberContainer.textContent = displayValue
+                operator = '%'
+                lastValue = displayValue
+                displayValue = ''
+            }
 
             if (key === '=' && displayValue && lastValue) {
                 let answer = Math.round(operate(operator, Number(lastValue), Number(displayValue))*100) / 100
-                console.log(answer)
                 numberContainer.textContent = answer
                 displayValue = answer
                 lastValue = displayValue
@@ -72,7 +80,12 @@ function populate() {
                 lastValue = ''
                 operator = ''
             }
-            
+            if (key === '<') {
+                displayValue = displayValue.slice(0, -1)
+                numberContainer.textContent = displayValue
+                console.log(displayValue)
+
+            }
 
         })
     
@@ -81,6 +94,10 @@ function populate() {
 
 function add(num1, num2) {
     return num1 + num2
+}
+
+function modulo(num1, num2) {
+    return num1 % num2
 }
 
 function subtract(num1, num2) {
@@ -102,7 +119,10 @@ function operate(operator, num1, num2) {
         return add(num1, num2)
     } else if (operator === '-') {
         return subtract(num1, num2)
-    } else if (operator === '*') {
+    } else if (operator === '%') {
+        return modulo(num1, num2)
+    }
+    else if (operator === '*') {
         return multiply(num1, num2)
     } else {
         return divide(num1, num2)
