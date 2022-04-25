@@ -12,15 +12,11 @@ let operator = ''
 function populate() {
     KEYS.forEach(key => {
         const button = document.createElement('div')
-        
         button.classList.add('button')
         button.textContent = key
-        
         buttonContainer.append(button)
-        
 
 
-    
         button.addEventListener('click', (e) => {
             const numberContainer = document.querySelector('.number-container')
             if (key === Number(key)) {
